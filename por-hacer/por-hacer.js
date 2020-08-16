@@ -46,9 +46,11 @@ let porHacer = () =>{
 const actualizar = (descripcion, completado = true) =>{
     cargarbd();
 
+
     let index = cosasPorHacer.findIndex( tarea => {
         return tarea.descripcion === descripcion;
     })
+
 
     if(index >= 0){
         cosasPorHacer[index].completado = completado;
@@ -66,6 +68,8 @@ const borrar = (descripcion) =>{
         return tarea.descripcion === descripcion;
     })
 
+   
+
     if(index >= 0){
         cosasPorHacer.splice(index, 1);
         guardarDB();
@@ -78,10 +82,30 @@ const borrar = (descripcion) =>{
 }
 
 
+let tareasCompletadas = (completados) =>{
+
+    if(completados === "false" ){
+        completados = false;
+    }else if(completados = "true"){
+        completados = true;
+    }
+
+    cargarbd();
+
+    const nuevoArray = cosasPorHacer.filter(arreglo => arreglo.completado === completados );
+
+    return nuevoArray;
+
+
+}
+
+
+
 
 module.exports = {
     crear,
     porHacer,
     actualizar,
-    borrar
+    borrar,
+    tareasCompletadas
 }
